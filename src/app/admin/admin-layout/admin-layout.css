@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f4f7f6; /* Fondo claro para resaltar formularios */
+}
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Busca el CSS de tu AdminLayout o el contenedor principal del panel */
+.admin-main-content {
+    margin-left: 260px;
+    margin-top: 65px;
+    padding: 40px; /* Espacio alrededor de la tarjeta */
+    background-color: #f4f7f6; /* El gris claro de fondo que se ve en tu imagen */
+    min-height: calc(100vh - 65px);
+}
+
+.admin-view-port {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* Ajustes para el Navbar Admin Sticky */
+app-navbar-admin {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+/* Ajuste para tablets/celulares si el sidebar se oculta */
+@media (max-width: 768px) {
+    .admin-main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+}
+
+  .admin-view-port {
+    padding: 1rem;
+  }
+}

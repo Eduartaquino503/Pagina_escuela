@@ -1,0 +1,107 @@
+<app-navbar></app-navbar>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Institución pública en Santa Tecla</span>
+    <h1>Complejo Educativo Walter A. Soundy</h1>
+    <p class="hero-subtitle">
+      Formando estudiantes con valores, disciplina y excelencia académica,
+      comprometidos con el desarrollo de la sociedad salvadoreña.
+    </p>
+    <p class="hero-description">
+      Más que una institución educativa, somos una comunidad que impulsa el
+      crecimiento integral de nuestros estudiantes desde parvularia hasta
+      bachillerato tecnico y general.
+    </p>
+    <div class="hero-buttons">
+      <button class="secondary">Ver oferta educativa</button>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-text">
+    <span class="section-tag">Nuestra institución</span>
+    <h2>¿Quiénes somos?</h2>
+
+    <p class="about-intro">{{ datos.quienesSomos }}</p>
+
+    <div class="about-highlights">
+      <div>✔ Educación desde parvularia hasta bachillerato</div>
+      <div>✔ Formación basada en valores</div>
+      <div>✔ Compromiso con la comunidad</div>
+    </div>
+  </div>
+  <div class="about-image">
+    <img [src]="imagenes.about" alt="Institución educativa" />
+  </div>
+</section>
+
+<section class="mission-vision">
+  <div class="section-header">
+    <span class="section-tag">Identidad institucional</span>
+    <h2>Nuestra filosofía educativa</h2>
+    <p>
+      Nos guiamos por principios que fortalecen la formación integral de
+      nuestros estudiantes, promoviendo el desarrollo académico, humano y social
+      dentro de un entorno educativo comprometido.
+    </p>
+  </div>
+
+  <div class="mv-container">
+    <div class="card mission">
+      <h3>Misión</h3>
+      <p>{{ datos.mision }}</p>
+      <img [src]="imagenes.mision" class="card-image" />
+    </div>
+
+    <div class="card vision">
+      <h3>Visión</h3>
+      <p>{{ datos.vision }}</p>
+      <img [src]="imagenes.vision" class="card-image" />
+    </div>
+  </div>
+
+  <div class="values">
+    <h3>Nuestros valores</h3>
+    <div class="values-grid">
+      <div>✔ Respeto</div>
+      <div>✔ Responsabilidad</div>
+      <div>✔ Honestidad</div>
+      <div>✔ Disciplina</div>
+      <div>✔ Compromiso social</div>
+      <div>✔ Trabajo en equipo</div>
+    </div>
+  </div>
+</section>
+
+<section class="offer">
+  <div class="section-header">
+    <span class="section-tag">Formación académica</span>
+    <h2>Nuestra oferta educativa</h2>
+    <p>
+      Brindamos formación académica integral desde los primeros niveles hasta
+      bachillerato.
+    </p>
+  </div>
+  <div class="levels">
+    <div>Parvularia</div>
+    <div>Educación básica</div>
+    <div class="highlight">Bachillerato general</div>
+    <div class="highlight">Bachillerato técnico en contaduría</div>
+  </div>
+  <button>Ver más</button>
+</section>
+
+<div class="images">
+  <div class="img-card" *ngFor="let img of imagenesGaleria">
+    <img [src]="getImageUrl(img.ruta_archivo)" alt="Galería" />
+  </div>
+</div>
+
+<footer>
+  <p>Complejo Educativo Walter A. Soundy</p>
+  <p>Santa Tecla, El Salvador</p>
+  <p><a href="#" style="color: #c9a34e">Facebook institucional</a></p>
+  <button (click)="scrollTop()">Volver arriba</button>
+</footer>

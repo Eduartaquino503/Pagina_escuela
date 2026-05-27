@@ -1,0 +1,14 @@
+<div class="admin-container">
+  <!-- El Sidebar se mantiene a la izquierda en escritorio -->
+  <app-sidebar></app-sidebar>
+
+  <div class="admin-main-content">
+    <!-- El Navbar superior del área administrativa -->
+    <app-navbar-admin></app-navbar-admin>
+
+    <!-- Área dinámica donde cargarás Editar Info, Grados, etc. -->
+    <main class="admin-view-port">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,397 @@
+/* CONTENEDOR PRINCIPAL */
+:host {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #f2f2f2, #e6ecf2);
+  color: #2c2c2c;
+}
+
+/* TITULOS */
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+            url('/Imagenes/EscuelaModerna.jpg');
+background-size: cover;
+background-position: center;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.hero-content {
+  max-width: 700px;
+  animation: fadeInUp 1s ease;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin: 20px 0;
+  opacity: 0.9;
+}
+
+.hero button {
+  background: linear-gradient(135deg, #C9A34E, #e0b95a);
+  border: none;
+  padding: 14px 30px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.hero button:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: #b8923f;
+}
+
+/* ABOUT */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 10%;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h2 {
+  color: #1E3A5F;
+  font-size: 2rem;
+}
+
+.about-text p {
+  line-height: 1.6;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  transition: 0.4s;
+}
+
+.about-image img:hover {
+  transform: scale(1.03);
+}
+
+/* MISION Y VISION */
+.mission-vision {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 80px 10%;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 35px;
+  width: 320px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  border-top: 5px solid #C9A34E;
+}
+
+.card h3 {
+  color: #1E3A5F;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-top: 20px;
+}
+
+/* OFERTA */
+.offer {
+  text-align: center;
+  padding: 80px 10%;
+}
+
+.offer h2 {
+  color: #1E3A5F;
+}
+
+.levels {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.levels div {
+  background: white;
+  padding: 18px 30px;
+  border-radius: 15px;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.levels div:hover {
+  transform: scale(1.1);
+  background: #1E3A5F;
+  color: white;
+}
+
+.offer button {
+  margin-top: 20px;
+  background: linear-gradient(135deg, #1E3A5F, #2F5D8C);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.offer button:hover {
+  transform: scale(1.05);
+}
+
+/* GALERIA */
+.gallery {
+  text-align: center;
+  padding: 80px 10%;
+}
+
+.gallery h2 {
+  color: #1E3A5F;
+}
+
+.gallery .images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.4s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gallery img:hover {
+  transform: scale(1.08);
+}
+
+/* GALERIA MEJORADA (NO SE ESTIRA, TODO UNIFORME) */
+.gallery .images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.img-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 200px; /* 🔥 clave: altura fija */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: #000;
+}
+
+/* IMAGEN */
+.img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 evita deformación */
+  transition: transform 0.4s ease;
+}
+
+/* EFECTO HOVER */
+.img-card:hover img {
+  transform: scale(1.08);
+}
+
+/* OVERLAY MEJORADO */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer {
+  background: linear-gradient(135deg, #1E3A5F, #2F5D8C);
+  color: white;
+  text-align: center;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+footer a {
+  color: #C9A34E;
+  text-decoration: none;
+}
+
+footer button {
+  margin-top: 10px;
+  background: #C9A34E;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .about {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mission-vision {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* HEADER */
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  color: #1E3A5F;
+  margin: 10px 0;
+}
+
+/* CONTENEDOR */
+.mv-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* CARDS */
+.mission, .vision {
+  border-top: 5px solid #C9A34E;
+}
+
+/* VALORES */
+.values {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.values h3 {
+  color: #1E3A5F;
+  margin-bottom: 20px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.values-grid div {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.values-grid div:hover {
+  transform: scale(1.05);
+  background: #1E3A5F;
+  color: white;
+}
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.img-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.img-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.img-card:hover img {
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 14px;
+}

@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+
+<header class="hero-section">
+  <h1>Oferta Académica</h1>
+
+  <p>
+    Centro Educativo Walter A. Soundy
+  </p>
+</header>
+
+<main class="contenedor-principal">
+
+  <!-- ========================= -->
+  <!-- GRADOS -->
+  <!-- ========================= -->
+
+  <h2 class="seccion-titulo">
+    🎓 Niveles Académicos
+  </h2>
+
+  <div class="linea-decorativa"></div>
+
+  <div class="cuadricula-grados">
+
+    @for (item of gradosAcademicos; track item.id) {
+
+      <article class="tarjeta">
+
+        <div class="contenido-texto">
+
+          <h3>
+            {{ item.nombre }}
+          </h3>
+
+          <p>
+            {{ item.descripcion }}
+          </p>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+  <!-- ========================= -->
+  <!-- TALLERES -->
+  <!-- ========================= -->
+
+  <h2 class="seccion-titulo">
+    🛠️ Talleres Complementarios
+  </h2>
+
+  <div class="linea-decorativa"></div>
+
+  <div class="cuadricula-grados">
+
+    @for (item of talleres; track item.id) {
+
+      <article class="tarjeta">
+
+        <div class="contenido-texto">
+
+          <h3>
+            {{ item.nombre }}
+          </h3>
+
+          <p>
+            {{ item.descripcion }}
+          </p>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+</main>
+
+<app-footer></app-footer>

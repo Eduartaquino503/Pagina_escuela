@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.sidebar {
+  background-color: #2F5D8C;
+  width: 260px;
+  /* Se ajusta debajo del navbar-admin */
+  height: calc(100vh - 65px); 
+  position: fixed;
+  top: 65px; 
+  left: 0;
+  border-right: 3px solid #C9A34E;
+  overflow-y: auto;
+  z-index: 1050;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  background-color: #1E3A5F;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+  background-color: #1E3A5F;
+  color: #C9A34E;
+  padding-left: 2rem;
+}
+
+.menu-link.active {
+  background-color: #1E3A5F;
+  color: #C9A34E;
+  border-left: 5px solid #C9A34E;
+  font-weight: 600;
+}
+
+.menu-icon {
+  font-size: 1.3rem;
+}
+
+.menu-text {
+  font-size: 0.9rem;
+}
+
+/* Responsividad para móviles (HP Server) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+    /* En móviles el sidebar se oculta o se desplaza según el AdminLayout */
+    transform: translateX(-100%); 
+  }
+  
+  /* Clase activa para mostrar sidebar en móvil si implementas el toggle */
+  .sidebar.show {
+    transform: translateX(0);
+  }
+}

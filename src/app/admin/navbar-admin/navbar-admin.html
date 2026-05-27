@@ -1,0 +1,16 @@
+<nav class="navbar-admin" role="banner">
+  <div class="logo">
+    <h2>⚙️ Gestión CEWAS</h2>
+  </div>
+  
+  <div class="user-menu">
+    <!-- El nombre se oculta en móviles mediante CSS -->
+    <span class="user-name">
+      <strong>User:</strong> {{ userName }}
+    </span>
+    
+    <button class="btn-logout" (click)="logout()" aria-label="Cerrar sesión administrativa">
+      Cerrar Sesión
+    </button>
+  </div>
+</nav>

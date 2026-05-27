@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+.navbar-admin {
+  background-color: #1E3A5F;
+  border-bottom: 3px solid #C9A34E;
+  padding: 0.8rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100; /* Un nivel por encima del sidebar para evitar solapamientos */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.logo h2 {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-logout {
+  background-color: #C9A34E;
+  color: #1E3A5F;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.btn-logout:hover {
+  background-color: #e0b85a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+  .navbar-admin {
+    padding: 0.6rem 1rem;
+  }
+
+  .logo h2 {
+    font-size: 0.9rem;
+    max-width: 120px;
+  }
+
+  .user-name {
+    display: none; /* Ocultamos el nombre en móviles muy pequeños para ahorrar espacio */
+  }
+
+  .btn-logout {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,205 @@
+:host {
+    --footer-bg: #1e3a5f;
+    --footer-bg-soft: #2c4a73;
+    --footer-title: #ffffff;
+    --footer-primary: #f8f9fa;
+    --footer-secondary: #cbd5e0;
+    --footer-accent: #c9a34e;
+    --footer-panel: #162c47;
+    --footer-border: #335075;
+    --transition: all 0.3s ease;
+
+    display: block;
+    width: 100%;
+}
+
+.site-footer {
+    max-width: 1120px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--footer-bg), var(--footer-bg-soft));
+    color: var(--footer-title);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--footer-border);
+    margin-bottom: 2rem;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.footer-brand img {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: white;
+    padding: 5px;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-nav a {
+    color: var(--footer-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.footer-nav a:hover {
+    color: var(--footer-accent);
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--footer-accent);
+    color: var(--footer-panel);
+    transform: translateY(-3px);
+}
+
+.footer-body {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--footer-accent);
+    color: var(--footer-panel);
+    font-weight: 700;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-contact {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.contact-item h2 {
+    margin: 0;
+    color: var(--footer-accent);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-primary {
+    margin: 0.3rem 0 0;
+    color: var(--footer-primary);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.contact-address {
+    margin: 0.3rem 0 0;
+    color: var(--footer-secondary);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer-subscribe {
+    background: var(--footer-panel);
+    border: 1px solid var(--footer-border);
+    border-radius: 16px;
+    padding: 2rem;
+    height: fit-content;
+}
+
+.footer-subscribe label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.footer-subscribe input {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--footer-border);
+    background: #f8fafc;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.footer-subscribe input:focus {
+    border-color: var(--footer-accent);
+    box-shadow: 0 0 0 3px rgba(201, 163, 78, 0.2);
+}
+
+.footer-subscribe button {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--footer-accent);
+    color: var(--footer-panel);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.footer-subscribe button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+/* Responsividad */
+@media (max-width: 850px) {
+    .footer-body {
+        grid-template-columns: 1fr;
+    }
+    .footer-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-nav {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    .footer-nav {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+}

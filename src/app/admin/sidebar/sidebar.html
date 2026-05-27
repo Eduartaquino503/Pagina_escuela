@@ -1,0 +1,18 @@
+<aside class="sidebar" role="navigation" aria-label="Menú administrativo">
+  <div class="sidebar-header">
+    <h3>Navegación</h3>
+  </div>
+  
+  <ul class="sidebar-menu">
+    <li *ngFor="let item of menuItems" class="menu-item">
+      <a 
+        [routerLink]="item.ruta" 
+        routerLinkActive="active" 
+        class="menu-link"
+        [title]="item.nombre">
+        <span class="menu-icon" aria-hidden="true">{{ item.icono }}</span>
+        <span class="menu-text">{{ item.nombre }}</span>
+      </a>
+    </li>
+  </ul>
+</aside>

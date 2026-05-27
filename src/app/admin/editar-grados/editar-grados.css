@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+:host {
+    display: block;
+    background-color: #f4f7f6;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* CONTENEDOR */
+.container-grados {
+    width: 100%;
+}
+
+/* CARD PRINCIPAL */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* HEADER */
+.card-header {
+    background-color: #1E3A5F;
+    padding: 20px 25px;
+    border-bottom: 4px solid #C9A34E;
+    color: white;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    margin-top: 5px;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+/* BODY */
+.card-body {
+    padding: 25px;
+}
+
+/* ALERTAS */
+.alert {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* FORMULARIOS */
+.form-section {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid #C9A34E;
+    margin-bottom: 30px;
+}
+
+.form-section h4 {
+    margin-top: 0;
+    color: #1E3A5F;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1E3A5F;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #C9A34E;
+    box-shadow: 0 0 0 3px rgba(201, 163, 78, 0.2);
+}
+
+/* BOTONES */
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-guardar,
+.btn-cancelar,
+.btn-editar,
+.btn-eliminar,
+.btn-agregar-grado {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-guardar {
+    background: #1E3A5F;
+    color: white;
+    padding: 10px 18px;
+}
+
+.btn-guardar:hover {
+    background: #16304f;
+}
+
+.btn-cancelar {
+    background: #6c757d;
+    color: white;
+    padding: 10px 18px;
+}
+
+.btn-cancelar:hover {
+    background: #5a6268;
+}
+
+.btn-editar {
+    background: #C9A34E;
+    color: white;
+    padding: 8px 14px;
+}
+
+.btn-editar:hover {
+    background: #b8923f;
+}
+
+.btn-eliminar {
+    background: white;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 8px 14px;
+}
+
+.btn-eliminar:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-agregar-grado {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+}
+
+.btn-agregar-grado:hover {
+    background-color: #218838;
+}
+
+/* GRID */
+.grados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+/* TARJETAS */
+.grado-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    transition: 0.3s ease;
+}
+
+.grado-card.seleccionado {
+    border-color: #C9A34E;
+    background-color: #fffdf5;
+}
+
+.grado-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .grados-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .card-body {
+        padding: 18px;
+    }
+}

@@ -1,0 +1,156 @@
+<div class="container-imagenes">
+  <div class="card">
+    <!-- HEADER -->
+    <div class="card-header">
+      <h3>Multimedia Institucional</h3>
+    </div>
+
+    <div class="card-body">
+      <!-- TABS -->
+      <div class="tabs">
+        <button
+          class="tab-btn"
+          [class.active]="tabActiva === 'grados'"
+          (click)="tabActiva='grados'"
+        >
+          📸 Identidad
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="tabActiva === 'slider'"
+          (click)="tabActiva='slider'"
+        >
+          🎠 Carrusel
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="tabActiva === 'galeria'"
+          (click)="tabActiva='galeria'"
+        >
+          🖼️ Galería
+        </button>
+      </div>
+
+      <!-- ================= IDENTIDAD ================= -->
+      <div *ngIf="tabActiva === 'grados'" class="tab-content">
+        <div class="form-section">
+          <h4>Subir imagen institucional</h4>
+
+          <div
+            class="input-group"
+            style="display: flex; gap: 15px; margin-bottom: 15px"
+          >
+            <div style="flex: 1">
+              <label>Sección</label>
+
+              <select class="form-control" [(ngModel)]="seccionSeleccionada">
+                <option value="mision">Misión</option>
+                <option value="vision">Visión</option>
+                <option value="about">About</option>
+              </select>
+            </div>
+
+            <div style="flex: 1">
+              <label>Imagen</label>
+
+              <input
+                type="file"
+                class="form-control"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+            </div>
+          </div>
+
+          <!-- PREVIEW -->
+          <img
+            *ngIf="imagenPreview"
+            [src]="imagenPreview"
+            class="imagen-preview"
+          />
+
+          <div style="display: flex; gap: 10px; margin-top: 10px">
+            <button
+              class="btn-guardar"
+              (click)="guardarImagen()"
+              [disabled]="!imagenSeleccionada"
+            >
+              💾 Guardar
+            </button>
+
+            <button class="btn-limpiar" (click)="limpiarFormularioImagen()">
+              🗑️ Limpiar
+            </button>
+          </div>
+        </div>
+
+        <!-- LISTA -->
+        <div class="imagenes-grid">
+          <div class="imagen-card" *ngFor="let img of imagenes">
+            <img
+              class="imagen-thumb"
+              [src]="getImageUrl(img.ruta_archivo)"
+              alt="Imagen"
+            />
+
+            <p><strong>{{ img.seccion }}</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SLIDER ================= -->
+      <div *ngIf="tabActiva === 'slider'" class="tab-content">
+        <div class="form-section">
+          <h4>Slider (en construcción backend)</h4>
+          <p>Se integrará después con el mismo servicio.</p>
+        </div>
+      </div>
+
+      <!-- ================= GALERÍA ================= -->
+      <div *ngIf="tabActiva === 'galeria'" class="tab-content">
+        <div class="form-section">
+          <h4>Galería Institucional</h4>
+
+          <p>Máximo 8 imágenes</p>
+
+          <input
+            type="file"
+            class="form-control"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+
+          <img
+            *ngIf="imagenPreview"
+            [src]="imagenPreview"
+            class="imagen-preview"
+          />
+
+          <div style="margin-top: 15px">
+            <button
+              class="btn-guardar"
+              type="button"
+              (click)="guardarImagen()"
+              [disabled]="!imagenSeleccionada"
+            >
+              💾 Guardar Imagen
+            </button>
+          </div>
+        </div>
+
+        <!-- GRID -->
+        <div class="imagenes-grid">
+          <div class="imagen-card" *ngFor="let img of imagenesGaleria">
+            <img class="imagen-thumb" [src]="getImageUrl(img.ruta_archivo)" />
+
+            <p>{{ img.seccion }}</p>
+
+            <button (click)="eliminarImagen(img.id_imagen)">🗑️ Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

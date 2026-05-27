@@ -1,0 +1,15 @@
+<nav class="navbar" role="navigation" aria-label="Navegación institucional">
+  <div class="logo" routerLink="/inicio">
+    <img src="/favicon.ico" alt="Logo Walter Soundy" onerror="this.src='assets/logo-fallback.png'">
+    <span>Complejo Educativo Walter A. Soundy</span>
+  </div>
+  
+  <ul class="nav-links">
+    <li>
+      <a routerLink="/inicio" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+    </li>
+    <li>
+      <a routerLink="/oferta-academica" routerLinkActive="active">Oferta Académica</a>
+    </li>
+  </ul>
+</nav>
