@@ -1,13 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, RouterLink, ActivatedRoute } from "@angular/router";
 import { AuthService } from "./auth.service";
 
 @Component({
   selector: "app-login-page",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
 })
@@ -15,6 +15,7 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   errorMessage = "";
   submitting = false;
@@ -38,12 +39,15 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        this.router.navigateByUrl("/admin/editar-info");
+        // Captura la URL original guardada por el AuthGuard. Si no existe, por defecto va a información general.
+        const targetUrl = this.route.snapshot.queryParams['redirectTo'] || "/admin/editar-info";
+        
+        console.log(`[Login] Autenticación exitosa. Redireccionando a: ${targetUrl}`);
+        this.router.navigateByUrl(targetUrl);
       },
-
-      error: () => {
+      error: (err) => {
+        console.error("[Login] Error en credenciales: ", err);
         this.errorMessage = "Correo o contraseña inválidos";
-
         this.submitting = false;
       },
     });

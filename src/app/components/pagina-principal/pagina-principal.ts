@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectorRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { Navbar } from "../navbar/navbar";
+import { FooterComponent } from "../footer/footer.component";
 
 import {
   InstitucionService,
@@ -13,19 +14,22 @@ import {
   Multimedia,
 } from "../../services/multimedia.service";
 
+import { InfoLocal } from "../../services/info-local"; 
+
 @Component({
   selector: "app-pagina-principal",
   standalone: true,
-  imports: [Navbar, CommonModule, RouterModule],
+  imports: [Navbar, FooterComponent, CommonModule, RouterModule],
   templateUrl: "./pagina-principal.html",
   styleUrls: ["./pagina-principal.css"],
 })
 export class PaginaPrincipalComponent implements OnInit {
   private institucionService = inject(InstitucionService);
   private multimediaService = inject(MultimediaService);
+  private infoLocal = inject(InfoLocal); 
   private cdr = inject(ChangeDetectorRef);
 
-  // DATOS INSTITUCIÓN
+  // DATOS INSTITUCIÓN (Estado inicial limpio)
   datos: InstitucionConfig = {
     id_config: 0,
     mision: "",
@@ -33,56 +37,100 @@ export class PaginaPrincipalComponent implements OnInit {
     quienesSomos: "",
   };
 
-  // IMÁGENES IDENTIDAD
+  // MAPA MULTIMEDIA DINÁMICO
   imagenes: any = {};
 
-  // GALERÍA
+  // ARREGLO DE GALERÍA Y CAROUSEL UNIFICADO
   imagenesGaleria: Multimedia[] = [];
 
   ngOnInit(): void {
-    // CARGAR DATOS
+    this.cargarDatosInstitucion();
+    this.cargarGaleriaMultimedia();
+  }
+
+  /**
+   * Obtiene la configuración de textos almacenados en MySQL (Túnel Cloudflare).
+   */
+  cargarDatosInstitucion(): void {
     this.institucionService.getInstitucion().subscribe({
       next: (res: InstitucionConfig) => {
-        this.datos = res;
-        this.cdr.detectChanges();
+        if (res) {
+          this.datos = res;
+        }
       },
-
-      error: (err) => console.error("Error conectando al backend:", err),
+      error: (err) => {
+        console.error("[PaginaPrincipal] Servidor HP inaccesible. Activando textos de contingencia local...", err);
+        const respaldo = this.infoLocal.obtenerInfo();
+        this.datos = {
+          id_config: 1,
+          quienesSomos: respaldo.quienesSomos,
+          mision: respaldo.mision,
+          vision: respaldo.vision
+        };
+      },
     });
+  }
 
-    // CARGAR IMÁGENES
+  /**
+   * Sincroniza el mapa de imágenes institucionales evitando bucles infinitos de repintado.
+   */
+  cargarGaleriaMultimedia(): void {
     this.multimediaService.getImagenes().subscribe({
       next: (res: Multimedia[]) => {
-        // mapa de imágenes generales (mision, vision, etc)
-        res.forEach((img) => {
-          this.imagenes[img.seccion] = "/Imagenes/" + img.ruta_archivo;
-        });
+        if (res && Array.isArray(res)) {
+          const mapaTemporal: any = {};
+          
+          res.forEach((img) => {
+            if (img && img.seccion) {
+              // Forzar minúsculas en la llave de control para asegurar acoplamiento con el HTML
+              mapaTemporal[img.seccion.toLowerCase()] = img.ruta_archivo;
+            }
+          });
+          
+          // Asignación en lote limpia (Angular detectará el cambio de estado de manera nativa y suave)
+          this.imagenes = mapaTemporal;
 
-        // 🔥 IMPORTANTE: asegurar máximo 8 y SOLO galería
-        this.imagenesGaleria = res
-          .filter((img) => img.seccion?.startsWith("galeria"))
-          .slice(0, 8);
-
-        console.log("GALERÍA CARGADA:", this.imagenesGaleria);
-        console.log("TODAS LAS IMÁGENES:", res);
-        console.log(
-          "GALERÍA FILTRADA:",
-          res.filter((img) => img.seccion === "galeria"),
-        );
-
-        this.cdr.detectChanges();
+          // CORREGIDO: Filtro tolerante que acepta tanto 'galeria' como tus nuevos registros 'slider1', 'slider2', etc.
+          this.imagenesGaleria = res
+            .filter((img) => {
+              if (!img || !img.ruta_archivo || !img.seccion) return false;
+              const sec = img.seccion.toLowerCase();
+              return sec.startsWith("galeria") || sec.startsWith("slider");
+            })
+            .slice(0, 8);
+        }
       },
-      error: (err) => console.error("Error cargando imágenes:", err),
+      error: (err) => {
+        console.error("[PaginaPrincipal] Error al sincronizar imágenes del Servidor HP:", err);
+      },
     });
   }
 
-  // HELPER URL
+  /**
+   * Helper unificado para resolver la ruta de archivos de diseño vs dinámicos.
+   * Resuelve fallos de CamelCase y previene excepciones de cadena indefinida.
+   */
   getImageUrl(nombre: string): string {
-    return "/Imagenes/" + nombre;
+    if (!nombre || typeof nombre !== 'string') {
+      return 'Imagenes/placeholder.jpg'; 
+    }
+
+    const nombreMinuscula = nombre.toLowerCase();
+    const imagenesDiseno = ['default-about.jpg', 'escmodern.jpg', 'placeholder.jpg', 'about.jpg', 'clases.jpg'];
+
+    // Si coincide con los archivos base empaquetadas en tu web.zip
+    if (imagenesDiseno.includes(nombreMinuscula)) {
+      if (nombreMinuscula === 'escmodern.jpg') {
+        return 'Imagenes/EscuelaModerna.jpg';
+      }
+      return 'Imagenes/' + nombre;
+    }
+
+    // Si es una imagen subida dinámicamente desde el volumen del administrador
+    return `https://api.oseaquino-proyectos.uk/api/multimedia/archivo/${nombre}`;
   }
 
-  // BOTÓN SCROLL
-  scrollTop() {
+  scrollTop(): void {
     window.scrollTo({
       top: 0,
       behavior: "smooth",

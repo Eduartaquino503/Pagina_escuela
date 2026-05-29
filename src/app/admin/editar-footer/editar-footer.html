@@ -24,7 +24,7 @@
               class="form-control" 
               [(ngModel)]="telefono"
               name="telefono"
-              (input)="onTelefonoInput()"
+              (ngModelChange)="onTelefonoInput()"
               (blur)="onTelefonoBlur()"
               placeholder="0000-0000"
               maxlength="9">
@@ -38,6 +38,7 @@
             class="form-control" 
             [(ngModel)]="correo"
             name="correo"
+            (ngModelChange)="actualizarVistaPrevia()"
             (blur)="onCorreoBlur()"
             placeholder="ejemplo@cewas.edu.sv">
         </div>

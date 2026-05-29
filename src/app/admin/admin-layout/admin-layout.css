@@ -1,45 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #f4f7f6; /* Fondo claro para resaltar formularios */
+  background-color: #f4f7f6;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* CONTENEDOR PRINCIPAL VERTICAL */
 .admin-container {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-/* Busca el CSS de tu AdminLayout o el contenedor principal del panel */
-.admin-main-content {
-    margin-left: 260px;
-    margin-top: 65px;
-    padding: 40px; /* Espacio alrededor de la tarjeta */
-    background-color: #f4f7f6; /* El gris claro de fondo que se ve en tu imagen */
-    min-height: calc(100vh - 65px);
-}
-
-.admin-view-port {
-  padding: 2rem;
+/* ENVOLTORIO INFERIOR (Sidebar + Contenido) */
+.admin-content-wrapper {
+  display: flex;
   flex: 1;
+  position: relative;
 }
 
-/* Ajustes para el Navbar Admin Sticky */
+/* NAVBAR SUPERIOR STICKY (Siempre visible arriba de todo) */
 app-navbar-admin {
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Ajuste para tablets/celulares si el sidebar se oculta */
+/* CONTENEDOR DE VISTAS (Se expande ocupando el resto del ancho) */
+.admin-main-content {
+  flex: 1;
+  background-color: #f4f7f6;
+  margin-left: 260px; /* Espacio para el Sidebar en escritorio */
+  transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ÁREA INTERNA DINÁMICA */
+.admin-view-port {
+  padding: 40px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+/* ========================================================
+   MEDIAS QUERIES: Optimización Estricta para Celulares y Tablets
+   ======================================================== */
 @media (max-width: 768px) {
-    .admin-main-content {
-        margin-left: 0;
-        padding: 15px;
-    }
-}
+  /* En celular, el contenido principal toma todo el ancho eliminando el margen */
+  .admin-main-content {
+    margin-left: 0 !important;
+  }
 
+  /* Reducimos el padding para que los formularios e imágenes aprovechen la pantalla */
   .admin-view-port {
-    padding: 1rem;
+    padding: 15px !important;
   }
 }

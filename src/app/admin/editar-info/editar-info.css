@@ -6,27 +6,49 @@
     padding: 20px;
 }
 
+/* CARD PRINCIPAL RESPONSIVA */
 .card {
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    /* Controlamos el ancho para que se vea como en tu imagen */
-    max-width: 700px; 
-    /* Centramos horizontalmente */
+    width: 92%; /* Se adapta de forma elástica en celulares */
+    max-width: 700px; /* Ancho máximo en monitores de escritorio */
     margin: 20px auto; 
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
 }
+
+/* HEADER */
 .card-header {
     background-color: #1E3A5F;
     padding: 25px;
     border-bottom: 4px solid #C9A34E;
     color: white;
-    text-align: center; /* Centramos el título del encabezado */
+    text-align: center; 
 }
 
+.card-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.header-subtitle {
+    margin: 5px 0 0 0; 
+    font-size: 0.85rem; 
+    opacity: 0.9;
+}
+
+/* BODY */
 .card-body {
     padding: 40px;
+    box-sizing: border-box;
+}
+
+/* CONTENEDORES DE FORMULARIO */
+.form-field-group {
+    margin-bottom: 25px;
 }
 
 .form-label {
@@ -43,7 +65,10 @@
     border: 1.5px solid #e0e0e0;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
     transition: all 0.3s;
+    box-sizing: border-box;
+    background-color: white;
 }
 
 .form-control:focus {
@@ -52,7 +77,36 @@
     box-shadow: 0 0 0 4px rgba(201, 163, 78, 0.15);
 }
 
-/* Indicadores de caracteres */
+/* ALERTAS INSTITUCIONALES */
+.alert {
+    padding: 15px; 
+    border-radius: 10px; 
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.alert-success {
+    background: #d4edda; 
+    color: #155724; 
+    border-left: 5px solid #28a745;
+}
+
+.alert-danger {
+    background: #f8d7da; 
+    color: #721c24; 
+    border-left: 5px solid #dc3545;
+}
+
+/* MENSAJES DE ERROR DE VALIDACIÓN */
+.text-error-msg {
+    font-size: 0.8rem; 
+    margin-top: 5px;
+    font-weight: 500;
+    color: #e74c3c;
+}
+
+/* INDICADORES DE CARACTERES */
 .form-hint {
     display: flex;
     justify-content: flex-end;
@@ -64,10 +118,11 @@
 .text-warning { color: #f39c12; }
 .text-danger { color: #e74c3c; }
 
+/* BOTÓN DE ACCIÓN ACCESIBLE */
 .btn-primary {
     background-color: #C9A34E;
     color: #1E3A5F;
-    width: 100%; /* Botón a lo ancho de la tarjeta */
+    width: 100%; 
     padding: 15px;
     border-radius: 12px;
     font-weight: 700;
@@ -75,13 +130,41 @@
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: inherit;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #b59141;
+    transform: translateY(-1px);
 }
 
 .btn-primary:disabled {
     background-color: #ccc;
+    color: #666;
     cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
-    .card-body { padding: 20px; }
+/* ========================================================
+   MEDIA QUERY: Optimización Responsiva para Teléfonos Celulares
+   ======================================================== */
+@media (max-width: 768px) {
+    :host {
+        padding: 10px;
+    }
+
+    .card {
+        width: 100%;
+        margin: 10px auto;
+        border-radius: 12px;
+    }
+
+    /* Reducción controlada del padding para ganar espacio de escritura */
+    .card-body { 
+        padding: 20px; 
+    }
+
+    .card-header {
+        padding: 20px 15px;
+    }
 }

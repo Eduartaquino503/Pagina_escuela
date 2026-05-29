@@ -4,6 +4,7 @@
     display: block;
     background-color: #f4f7f6;
     min-height: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container-footer {
@@ -28,7 +29,7 @@
 .card-header h3 {
     color: white;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
     font-weight: 600;
 }
 
@@ -56,6 +57,7 @@
 .phone-input-group {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .phone-prefix {
@@ -65,6 +67,7 @@
     font-weight: 700;
     color: #495057;
     border: 2px solid #dee2e6;
+    white-space: nowrap;
 }
 
 .form-control {
@@ -73,12 +76,16 @@
     border: 2px solid #dee2e6;
     border-radius: 10px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: white;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .form-control:focus {
     outline: none;
     border-color: #C9A34E;
+    box-shadow: 0 0 0 4px rgba(201, 163, 78, 0.15);
 }
 
 .alert {
@@ -104,7 +111,13 @@
     border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
+    transition: 0.3s;
     flex: 2;
+}
+
+.btn-guardar:hover {
+    background-color: #b59040;
+    transform: translateY(-1px);
 }
 
 .btn-cancelar {
@@ -114,7 +127,12 @@
     border: 1px solid #dee2e6;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.3s;
     flex: 1;
+}
+
+.btn-cancelar:hover {
+    background: #e2e6ea;
 }
 
 .preview-section {
@@ -123,11 +141,17 @@
     border-top: 2px solid #f0f0f0;
 }
 
+.preview-section h4 {
+    color: #1E3A5F;
+    margin-bottom: 15px;
+}
+
 .footer-preview {
     background: #1E3A5F;
     border-radius: 12px;
     padding: 20px;
     color: white;
+    border-left: 5px solid #C9A34E;
 }
 
 .preview-item {
@@ -135,6 +159,10 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+.preview-item:last-child {
+    margin-bottom: 0;
 }
 
 .unsaved-changes {
@@ -145,9 +173,35 @@
     border-radius: 8px;
     text-align: center;
     font-size: 0.85rem;
+    border: 1px solid #ffeeba;
 }
 
+/* ========================================================
+   MEDIAS QUERIES: Optimización Responsiva Celular
+   ======================================================== */
 @media (max-width: 600px) {
-    .phone-input-group { flex-direction: column; }
-    .button-container { flex-direction: column; }
+    .container-footer {
+        padding: 10px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+
+    /* CORREGIDO: Mantiene el prefijo alineado horizontalmente en pantallas pequeñas */
+    .phone-input-group { 
+        display: flex;
+        flex-direction: row !important; 
+    }
+    
+    /* Los botones se apilan para mejor usabilidad en pantallas táctiles */
+    .button-container { 
+        flex-direction: column; 
+        gap: 10px;
+    }
+    
+    .btn-guardar, .btn-cancelar {
+        width: 100%;
+        flex: none;
+    }
 }

@@ -3,15 +3,14 @@
 .sidebar {
   background-color: #2F5D8C;
   width: 260px;
-  /* Se ajusta debajo del navbar-admin */
-  height: calc(100vh - 65px); 
-  position: fixed;
-  top: 65px; 
-  left: 0;
+  min-width: 260px; /* Evita que el Flexbox comprima el menú lateral horizontalmente */
+  /* CORREGIDO: Ahora el layout gobierna el espacio de forma nativa abajo del navbar */
+  height: 100%; 
   border-right: 3px solid #C9A34E;
   overflow-y: auto;
   z-index: 1050;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
 .sidebar-header {
@@ -48,6 +47,7 @@
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .menu-link:hover {
@@ -71,16 +71,22 @@
   font-size: 0.9rem;
 }
 
-/* Responsividad para móviles (HP Server) */
+/* ========================================================
+   MEDIA QUERY: Comportamiento de Ocultación para Móviles
+   ======================================================== */
 @media (max-width: 768px) {
   .sidebar {
-    width: 220px;
-    /* En móviles el sidebar se oculta o se desplaza según el AdminLayout */
+    position: fixed; /* En móviles vuelve temporalmente a fixed para sobreponerse de forma controlada */
+    top: 60px; /* Altura del navbar colapsado */
+    height: calc(100vh - 60px);
+    width: 260px;
+    min-width: 260px;
     transform: translateX(-100%); 
   }
   
-  /* Clase activa para mostrar sidebar en móvil si implementas el toggle */
+  /* Clase activa para desplegar por encima en caliente */
   .sidebar.show {
     transform: translateX(0);
+    box-shadow: 4px 0 15px rgba(0,0,0,0.20);
   }
 }

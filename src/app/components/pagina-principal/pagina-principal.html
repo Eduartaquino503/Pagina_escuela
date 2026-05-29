@@ -11,10 +11,10 @@
     <p class="hero-description">
       Más que una institución educativa, somos una comunidad que impulsa el
       crecimiento integral de nuestros estudiantes desde parvularia hasta
-      bachillerato tecnico y general.
+      bachillerato técnico y general.
     </p>
     <div class="hero-buttons">
-      <button class="secondary">Ver oferta educativa</button>
+      <button class="secondary" routerLink="/oferta-academica">Ver oferta educativa</button>
     </div>
   </div>
 </section>
@@ -23,8 +23,7 @@
   <div class="about-text">
     <span class="section-tag">Nuestra institución</span>
     <h2>¿Quiénes somos?</h2>
-
-    <p class="about-intro">{{ datos.quienesSomos }}</p>
+    <p class="about-intro">{{ datos.quienesSomos || 'Cargando información institucional...' }}</p>
 
     <div class="about-highlights">
       <div>✔ Educación desde parvularia hasta bachillerato</div>
@@ -33,7 +32,7 @@
     </div>
   </div>
   <div class="about-image">
-    <img [src]="imagenes.about" alt="Institución educativa" />
+    <img [src]="imagenes.about ? getImageUrl(imagenes.about) : 'Imagenes/about.jpg'" alt="Institución educativa" onerror="this.src='/favicon.ico'" />
   </div>
 </section>
 
@@ -42,23 +41,23 @@
     <span class="section-tag">Identidad institucional</span>
     <h2>Nuestra filosofía educativa</h2>
     <p>
-      Nos guiamos por principios que fortalecen la formación integral de
+      Nos guiamos por principles que fortalecen la formación integral de
       nuestros estudiantes, promoviendo el desarrollo académico, humano y social
-      dentro de un entorno educativo comprometido.
+      dent de un entorno educativo comprometido.
     </p>
   </div>
 
   <div class="mv-container">
     <div class="card mission">
       <h3>Misión</h3>
-      <p>{{ datos.mision }}</p>
-      <img [src]="imagenes.mision" class="card-image" />
+      <p>{{ datos.mision || 'Cargando misión...' }}</p>
+      <img [src]="getImageUrl(imagenes.mision)" class="card-image" onerror="this.src='/favicon.ico'" />
     </div>
 
     <div class="card vision">
       <h3>Visión</h3>
-      <p>{{ datos.vision }}</p>
-      <img [src]="imagenes.vision" class="card-image" />
+      <p>{{ datos.vision || 'Cargando visión...' }}</p>
+      <img [src]="getImageUrl(imagenes.vision)" class="card-image" onerror="this.src='/favicon.ico'" />
     </div>
   </div>
 
@@ -79,10 +78,7 @@
   <div class="section-header">
     <span class="section-tag">Formación académica</span>
     <h2>Nuestra oferta educativa</h2>
-    <p>
-      Brindamos formación académica integral desde los primeros niveles hasta
-      bachillerato.
-    </p>
+    <p>Brindamos formación académica integral desde los primeros niveles hasta bachillerato.</p>
   </div>
   <div class="levels">
     <div>Parvularia</div>
@@ -90,18 +86,22 @@
     <div class="highlight">Bachillerato general</div>
     <div class="highlight">Bachillerato técnico en contaduría</div>
   </div>
-  <button>Ver más</button>
+  <button routerLink="/oferta-academica">Ver más detalles</button>
 </section>
 
-<div class="images">
-  <div class="img-card" *ngFor="let img of imagenesGaleria">
-    <img [src]="getImageUrl(img.ruta_archivo)" alt="Galería" />
+<section class="gallery">
+  <div class="section-header">
+    <span class="section-tag">Nuestra Vida Escolar</span>
+    <h2>Galería Institucional</h2>
   </div>
-</div>
+  <div class="images">
+    @for (img of imagenesGaleria; track img.id_imagen) {
+      <div class="img-card">
+        <img [src]="getImageUrl(img.ruta_archivo)" alt="Galería CEWAS" onerror="this.src='/favicon.ico'" />
+        <div class="overlay">CEWAS - Santa Tecla</div>
+      </div>
+    }
+  </div>
+</section>
 
-<footer>
-  <p>Complejo Educativo Walter A. Soundy</p>
-  <p>Santa Tecla, El Salvador</p>
-  <p><a href="#" style="color: #c9a34e">Facebook institucional</a></p>
-  <button (click)="scrollTop()">Volver arriba</button>
-</footer>
+<app-footer></app-footer>

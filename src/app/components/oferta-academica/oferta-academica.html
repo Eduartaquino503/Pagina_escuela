@@ -2,80 +2,76 @@
 
 <header class="hero-section">
   <h1>Oferta Académica</h1>
-
-  <p>
-    Centro Educativo Walter A. Soundy
-  </p>
+  <p>Centro Educativo Walter A. Soundy</p>
 </header>
 
 <main class="contenedor-principal">
 
-  <!-- ========================= -->
-  <!-- GRADOS -->
-  <!-- ========================= -->
-
-  <h2 class="seccion-titulo">
-    🎓 Niveles Académicos
-  </h2>
-
+  <h2 class="seccion-titulo">🎓 Niveles Académicos</h2>
   <div class="linea-decorativa"></div>
 
   <div class="cuadricula-grados">
-
     @for (item of gradosAcademicos; track item.id) {
-
       <article class="tarjeta">
-
-        <div class="contenido-texto">
-
-          <h3>
-            {{ item.nombre }}
-          </h3>
-
-          <p>
-            {{ item.descripcion }}
-          </p>
-
+        <div class="contenedor-foto">
+          <img src="assets/imagenes/clases.jpg" alt="Instalaciones CEWAS" class="foto-grado" onerror="this.src='/favicon.ico'">
         </div>
 
+        <div class="contenido-texto">
+          <h3>{{ item.nombre }}</h3>
+          <p>{{ item.descripcion || 'Sin descripción institucional disponible actualmente.' }}</p>
+
+          <button class="boton-info" (click)="abrirRequisitos(item)">
+            {{ gradoSeleccionado === item ? '🔽 Ocultar Información' : '🔎 Ver Requisitos' }}
+          </button>
+
+          @if (gradoSeleccionado === item) {
+            <div class="lista-requisitos-desplegable">
+              <h4>Requisitos de Ingreso:</h4>
+              <ul>
+                <li>Partida de nacimiento original y reciente.</li>
+                <li>Constancia de conducta o certificado del año anterior.</li>
+                <li>Copia de DUI de los padres o responsable legal.</li>
+                <li>Ficha de matrícula completa.</li>
+              </ul>
+            </div>
+          }
+        </div>
       </article>
-
     }
-
   </div>
 
-  <!-- ========================= -->
-  <!-- TALLERES -->
-  <!-- ========================= -->
-
-  <h2 class="seccion-titulo">
-    🛠️ Talleres Complementarios
-  </h2>
-
+  <h2 class="seccion-titulo" style="margin-top: 50px;">🛠️ Talleres Complementarios</h2>
   <div class="linea-decorativa"></div>
 
   <div class="cuadricula-grados">
-
     @for (item of talleres; track item.id) {
-
       <article class="tarjeta">
-
-        <div class="contenido-texto">
-
-          <h3>
-            {{ item.nombre }}
-          </h3>
-
-          <p>
-            {{ item.descripcion }}
-          </p>
-
+        <div class="contenedor-foto">
+          <img src="assets/imagenes/talleres.jpg" alt="Talleres CEWAS" class="foto-grado" onerror="this.src='/favicon.ico'">
         </div>
 
+        <div class="contenido-texto">
+          <h3>{{ item.nombre }}</h3>
+          <p>{{ item.descripcion || 'Sin descripción institucional disponible actualmente.' }}</p>
+
+          <button class="boton-info" (click)="abrirRequisitos(item)">
+            {{ gradoSeleccionado === item ? '🔽 Ocultar Detalles' : '🔎 Más Información' }}
+          </button>
+
+          @if (gradoSeleccionado === item) {
+            <div class="lista-requisitos-desplegable">
+              <h4>Detalles del Taller:</h4>
+              <ul>
+                <li>Disponibilidad: Jornada vespertina y matutina.</li>
+                <li>Orientado al desarrollo de habilidades técnicas y prácticas.</li>
+                <li>Inscripción abierta para todos los estudiantes matriculados.</li>
+              </ul>
+            </div>
+          }
+        </div>
       </article>
-
     }
-
   </div>
 
 </main>

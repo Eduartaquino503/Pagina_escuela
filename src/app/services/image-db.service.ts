@@ -41,13 +41,13 @@ export class ImageDBService {
       const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
       
       request.onerror = () => {
-        console.error('Error al abrir IndexedDB:', request.error);
+        console.error('[ImageDB] Error al abrir IndexedDB:', request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.log('✅ IndexedDB inicializada correctamente');
+        console.log('✅ [ImageDB] Inicializada correctamente en el navegador');
         resolve();
       };
       
@@ -71,7 +71,7 @@ export class ImageDBService {
           store.createIndex('activada', 'activada');
         }
         
-        console.log('✅ Tablas de IndexedDB creadas');
+        console.log('✅ [ImageDB] Estructura de tablas locales sincronizada');
       };
     });
   }
@@ -102,12 +102,12 @@ export class ImageDBService {
       const request = store.put(imagen);
       
       request.onsuccess = () => {
-        console.log(`✅ Imagen guardada para sección: ${seccion}`);
+        console.log(`✅ [ImageDB] Caché local guardada para: ${seccion}`);
         resolve();
       };
       
       request.onerror = () => {
-        console.error('Error al guardar imagen:', request.error);
+        console.error('[ImageDB] Error al persistir objeto local:', request.error);
         reject(request.error);
       };
     });
@@ -123,6 +123,7 @@ export class ImageDBService {
       
       request.onsuccess = () => {
         if (request.result) {
+          // CORREGIDO: Liberación explícita de memoria previa antes de reasignar
           if (request.result.url) {
             URL.revokeObjectURL(request.result.url);
           }
@@ -146,7 +147,7 @@ export class ImageDBService {
       const request = store.delete(seccion);
       
       request.onsuccess = () => {
-        console.log(`🗑️ Imagen eliminada para sección: ${seccion}`);
+        console.log(`🗑️ [ImageDB] Registro eliminado de caché: ${seccion}`);
         resolve();
       };
       request.onerror = () => reject(request.error);
@@ -154,21 +155,19 @@ export class ImageDBService {
   }
 
   async listarImagenesGrado(): Promise<ImagenGrado[]> {
-  await this.ensureDB();
-  
-  return new Promise((resolve, reject) => {
-    const transaction = this.db!.transaction(['imagenes_grado'], 'readonly');
-    const store = transaction.objectStore('imagenes_grado');
-    const request = store.getAll();
+    await this.ensureDB();
     
-    request.onsuccess = () => {
-      const imagenes = request.result || [];
-      // NO crear URL aquí, se hará en el componente
-      resolve(imagenes);
-    };
-    request.onerror = () => reject(request.error);
-  });
-}
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(['imagenes_grado'], 'readonly');
+      const store = transaction.objectStore('imagenes_grado');
+      const request = store.getAll();
+      
+      request.onsuccess = () => {
+        resolve(request.result || []);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
 
   // ========== SLIDER ==========
   async guardarSlider(imagenes: ImagenSlider[]): Promise<void> {
@@ -177,7 +176,6 @@ export class ImageDBService {
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['slider'], 'readwrite');
       const store = transaction.objectStore('slider');
-      
       const clearRequest = store.clear();
       
       clearRequest.onsuccess = () => {
@@ -191,9 +189,7 @@ export class ImageDBService {
           const putRequest = store.put(img);
           putRequest.onsuccess = () => {
             guardados++;
-            if (guardados === imagenes.length) {
-              resolve();
-            }
+            if (guardados === imagenes.length) resolve();
           };
           putRequest.onerror = () => reject(putRequest.error);
         }
@@ -243,7 +239,6 @@ export class ImageDBService {
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['galeria'], 'readwrite');
       const store = transaction.objectStore('galeria');
-      
       const clearRequest = store.clear();
       
       clearRequest.onsuccess = () => {
@@ -257,9 +252,7 @@ export class ImageDBService {
           const putRequest = store.put(img);
           putRequest.onsuccess = () => {
             guardados++;
-            if (guardados === imagenes.length) {
-              resolve();
-            }
+            if (guardados === imagenes.length) resolve();
           };
           putRequest.onerror = () => reject(putRequest.error);
         }

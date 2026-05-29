@@ -1,12 +1,10 @@
 <div class="container-imagenes">
   <div class="card">
-    <!-- HEADER -->
     <div class="card-header">
       <h3>Multimedia Institucional</h3>
     </div>
 
     <div class="card-body">
-      <!-- TABS -->
       <div class="tabs">
         <button
           class="tab-btn"
@@ -33,18 +31,13 @@
         </button>
       </div>
 
-      <!-- ================= IDENTIDAD ================= -->
       <div *ngIf="tabActiva === 'grados'" class="tab-content">
         <div class="form-section">
           <h4>Subir imagen institucional</h4>
 
-          <div
-            class="input-group"
-            style="display: flex; gap: 15px; margin-bottom: 15px"
-          >
+          <div class="input-group" style="display: flex; gap: 15px; margin-bottom: 15px">
             <div style="flex: 1">
               <label>Sección</label>
-
               <select class="form-control" [(ngModel)]="seccionSeleccionada">
                 <option value="mision">Misión</option>
                 <option value="vision">Visión</option>
@@ -54,7 +47,6 @@
 
             <div style="flex: 1">
               <label>Imagen</label>
-
               <input
                 type="file"
                 class="form-control"
@@ -64,7 +56,6 @@
             </div>
           </div>
 
-          <!-- PREVIEW -->
           <img
             *ngIf="imagenPreview"
             [src]="imagenPreview"
@@ -86,34 +77,78 @@
           </div>
         </div>
 
-        <!-- LISTA -->
         <div class="imagenes-grid">
           <div class="imagen-card" *ngFor="let img of imagenes">
             <img
               class="imagen-thumb"
               [src]="getImageUrl(img.ruta_archivo)"
-              alt="Imagen"
+              alt="Imagen Identidad"
             />
-
-            <p><strong>{{ img.seccion }}</strong></p>
+            <p><strong>{{ img.seccion | uppercase }}</strong></p>
           </div>
         </div>
       </div>
 
-      <!-- ================= SLIDER ================= -->
       <div *ngIf="tabActiva === 'slider'" class="tab-content">
         <div class="form-section">
-          <h4>Slider (en construcción backend)</h4>
-          <p>Se integrará después con el mismo servicio.</p>
+          <h4>🎠 Administrar Carrusel Principal</h4>
+          <p>Selecciona qué slide deseas actualizar.</p>
+
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label>Slide</label>
+            <select class="form-control" [(ngModel)]="sliderSeleccionado">
+              <option value="slider1">Slider 1</option>
+              <option value="slider2">Slider 2</option>
+              <option value="slider3">Slider 3</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label>Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+          </div>
+
+          <img
+            *ngIf="imagenPreview"
+            [src]="imagenPreview"
+            class="imagen-preview"
+          />
+
+          <div style="margin-top: 15px">
+            <button
+              class="btn-guardar"
+              type="button"
+              (click)="guardarImagen()"
+              [disabled]="!imagenSeleccionada"
+            >
+              💾 Guardar Slide
+            </button>
+          </div>
+        </div>
+
+        <div class="imagenes-grid">
+          <div class="imagen-card" *ngFor="let img of sliderImages">
+            <img class="imagen-thumb" [src]="getImageUrl(img.ruta_archivo)" alt="Slider" />
+            <p><strong>{{ img.seccion | uppercase }}</strong></p>
+            <button
+              class="btn-eliminar"
+              (click)="eliminarImagen(img.id_imagen)"
+            >
+              🗑️ Eliminar
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- ================= GALERÍA ================= -->
       <div *ngIf="tabActiva === 'galeria'" class="tab-content">
         <div class="form-section">
           <h4>Galería Institucional</h4>
-
-          <p>Máximo 8 imágenes</p>
+          <p>Máximo 8 imágenes en el carrusel responsivo</p>
 
           <input
             type="file"
@@ -140,17 +175,20 @@
           </div>
         </div>
 
-        <!-- GRID -->
         <div class="imagenes-grid">
           <div class="imagen-card" *ngFor="let img of imagenesGaleria">
-            <img class="imagen-thumb" [src]="getImageUrl(img.ruta_archivo)" />
-
-            <p>{{ img.seccion }}</p>
-
-            <button (click)="eliminarImagen(img.id_imagen)">🗑️ Eliminar</button>
+            <img class="imagen-thumb" [src]="getImageUrl(img.ruta_archivo)" alt="Galeria" />
+            <p><strong>{{ img.seccion | uppercase }}</strong></p>
+            <button
+              class="btn-eliminar"
+              (click)="eliminarImagen(img.id_imagen)"
+            >
+              🗑️ Eliminar
+            </button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

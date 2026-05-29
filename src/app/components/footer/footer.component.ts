@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { InstitucionService } from '../../services/institucion.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,28 +10,32 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent implements OnInit {
-  telefono: string = '+503 2229-9067';
+  private institucionService = inject(InstitucionService);
+
+  telefono: string = '2229-9067';
   correo: string = 'cewas2000@gmail.com';
 
   ngOnInit(): void {
     this.cargarDatosFooter();
   }
 
-  // Escucha si hay cambios en el LocalStorage desde el Panel Administrativo
-  @HostListener('window:storage', ['$event'])
-  onStorageChange(event: StorageEvent) {
-    if (event.key === 'footer_telefono' || event.key === 'footer_correo') {
-      this.cargarDatosFooter();
-    }
-  }
-
   cargarDatosFooter(): void {
-    const telefonoGuardado = localStorage.getItem('footer_telefono');
-    const correoGuardado = localStorage.getItem('footer_correo');
-    
-    // Si existen en el storage (editados por el módulo), los usamos. 
-    // Si no, se mantienen los valores por defecto.
-    if (telefonoGuardado) this.telefono = telefonoGuardado;
-    if (correoGuardado) this.correo = correoGuardado;
+    // 🔥 CORREGIDO: Consume el método del servicio centralizado con withCredentials en lugar de llamadas crudas
+    this.institucionService.getContacto().subscribe({
+      next: (contacto) => {
+        if (contacto) {
+          this.telefono = contacto.telefono || '2229-9067';
+          this.correo = contacto.correo || 'cewas2000@gmail.com';
+          
+          localStorage.setItem('footer_telefono', this.telefono);
+          localStorage.setItem('footer_correo', this.correo);
+        }
+      },
+      error: (err) => {
+        console.warn('[Footer] Servidor HP inaccesible, activando respaldo local.', err);
+        this.telefono = localStorage.getItem('footer_telefono') || '2229-9067';
+        this.correo = localStorage.getItem('footer_correo') || 'cewas2000@gmail.com';
+      }
+    });
   }
 }

@@ -15,18 +15,28 @@ export class NavbarAdmin {
   private router = inject(Router);
   
   /**
-   * Obtiene el nombre del usuario autenticado. 
-   * Si no hay información disponible en el servicio, retorna 'Administrador'.
+   * Obtiene el nombre del usuario autenticado de forma segura. 
+   * Mapea con tolerancia el atributo real proveniente de tu entidad de Java (nombre_completo).
    */
   get userName(): string {
-    return this.authService.user()?.name || 'Administrador';
+    const usuarioLogueado = this.authService.user;
+    
+    if (!usuarioLogueado) {
+      return 'Administrador';
+    }
+
+    // BLINDAJE: Busca 'nombre_completo' (API), 'nombreCompleto' o 'name' como último recurso
+    return usuarioLogueado.nombre_completo || 
+           usuarioLogueado.nombreCompleto || 
+           usuarioLogueado.name || 
+           'Administrador';
   }
   
   /**
    * Finaliza la sesión del usuario y redirige a la página pública de login.
    */
   logout(): void {
-    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+    if (confirm('¿Estás seguro de que deseas cerrar sesión del sistema administrativo?')) {
       this.authService.logout();
       this.router.navigateByUrl('/login');
     }

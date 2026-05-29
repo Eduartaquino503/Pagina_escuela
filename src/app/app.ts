@@ -10,8 +10,10 @@ import { ShortcutService } from './services/shortcut.service';
   styleUrl: './app.css'
 })
 export class App {
-  constructor() {
-    // Inicializar el servicio de atajos de teclado
-    inject(ShortcutService);
-  }
+  /**
+   * CORREGIDO: Declaramos e instanciamos el servicio como una propiedad de clase.
+   * Al hacer esto fuera del constructor, Angular lo procesa en el momento exacto
+   * del bootstrap global, activando el Listener del teclado de forma segura.
+   */
+  private readonly shortcutService = inject(ShortcutService);
 }

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
@@ -14,44 +14,22 @@ export interface Grado {
   providedIn: "root",
 })
 export class GradoService {
-  // Solo se modifica esta línea para producción en el Server-HP
-  private apiUrl = "https://api.oseaquino-proyectos.uk/cewas-backend-1.0-SNAPSHOT/api/grados";
+  private http = inject(HttpClient);
+  private readonly apiUrl = "https://api.oseaquino-proyectos.uk/api/grados";
 
-  constructor(private http: HttpClient) {}
-
-  // =========================
-  // GET
-  // =========================
   getGrados(): Observable<Grado[]> {
-    return this.http.get<Grado[]>(this.apiUrl);
+    return this.http.get<Grado[]>(this.apiUrl, { withCredentials: true });
   }
 
-  // =========================
-  // POST
-  // =========================
   crearGrado(grado: Grado): Observable<any> {
-    return this.http.post(this.apiUrl, grado);
+    return this.http.post(this.apiUrl, grado, { withCredentials: true });
   }
 
-  // =========================
-  // PUT
-  // =========================
-  actualizarGrado(
-    id: number,
-    grado: Grado
-  ): Observable<any> {
-    return this.http.put(
-      `${this.apiUrl}/${id}`,
-      grado
-    );
+  actualizarGrado(id: number, grado: Grado): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, grado, { withCredentials: true });
   }
 
-  // =========================
-  // DELETE
-  // =========================
   eliminarGrado(id: number): Observable<any> {
-    return this.http.delete(
-      `${this.apiUrl}/${id}`
-    );
+    return this.http.delete(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }

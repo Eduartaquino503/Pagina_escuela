@@ -7,12 +7,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* CONTENEDOR */
 .container-grados {
     width: 100%;
 }
 
-/* CARD PRINCIPAL */
 .card {
     background: white;
     border-radius: 16px;
@@ -20,7 +18,6 @@
     overflow: hidden;
 }
 
-/* HEADER */
 .card-header {
     background-color: #1E3A5F;
     padding: 20px 25px;
@@ -28,10 +25,11 @@
     color: white;
 }
 
-.card-header h3 {
+.card-header h2 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 600;
 }
 
 .subtitle {
@@ -40,12 +38,18 @@
     font-size: 0.95rem;
 }
 
-/* BODY */
 .card-body {
     padding: 25px;
 }
 
-/* ALERTAS */
+/* TOP ACTIONS (Contenedor del botón nuevo) */
+.top-actions {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* ALERTAS CORREGIDAS */
 .alert {
     padding: 14px;
     border-radius: 10px;
@@ -56,11 +60,13 @@
 .alert-success {
     background: #d4edda;
     color: #155724;
+    border-left: 5px solid #28a745;
 }
 
 .alert-danger {
     background: #f8d7da;
     color: #721c24;
+    border-left: 5px solid #dc3545;
 }
 
 /* FORMULARIOS */
@@ -74,6 +80,7 @@
 
 .form-section h4 {
     margin-top: 0;
+    margin-bottom: 20px;
     color: #1E3A5F;
 }
 
@@ -96,6 +103,8 @@
     box-sizing: border-box;
     font-size: 0.95rem;
     transition: 0.3s;
+    font-family: inherit;
+    background: white;
 }
 
 .form-control:focus {
@@ -121,22 +130,27 @@
     cursor: pointer;
     font-weight: 600;
     transition: 0.3s;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-guardar {
     background: #1E3A5F;
     color: white;
-    padding: 10px 18px;
+    padding: 10px 20px;
 }
 
 .btn-guardar:hover {
     background: #16304f;
+    transform: translateY(-1px);
 }
 
 .btn-cancelar {
     background: #6c757d;
     color: white;
-    padding: 10px 18px;
+    padding: 10px 20px;
 }
 
 .btn-cancelar:hover {
@@ -145,8 +159,9 @@
 
 .btn-editar {
     background: #C9A34E;
-    color: white;
-    padding: 8px 14px;
+    color: #1E3A5F;
+    padding: 8px 16px;
+    flex: 1;
 }
 
 .btn-editar:hover {
@@ -157,7 +172,8 @@
     background: white;
     color: #dc3545;
     border: 1px solid #dc3545;
-    padding: 8px 14px;
+    padding: 8px 16px;
+    flex: 1;
 }
 
 .btn-eliminar:hover {
@@ -169,13 +185,26 @@
     background-color: #28a745;
     color: white;
     padding: 12px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
 }
 
 .btn-agregar-grado:hover {
     background-color: #218838;
+    transform: translateY(-1px);
 }
 
-/* GRID */
+/* ACADEMICA SECTION HEADER */
+.academica-section h2 {
+    color: #1E3A5F;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+/* GRID RESPONSIVO */
 .grados-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -183,7 +212,7 @@
     width: 100%;
 }
 
-/* TARJETAS */
+/* TARJETAS DE GRADO */
 .grado-card {
     background: white;
     padding: 20px;
@@ -191,11 +220,30 @@
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
     transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.grado-card h3 {
+    margin: 0 0 10px 0;
+    color: #1E3A5F;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.grado-card p {
+    margin: 0 0 15px 0;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex: 1;
 }
 
 .grado-card.seleccionado {
     border-color: #C9A34E;
     background-color: #fffdf5;
+    box-shadow: 0 0 0 2px rgba(201, 163, 78, 0.2);
 }
 
 .grado-card:hover {
@@ -203,14 +251,15 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* MODAL */
+/* MODAL OVERLAY SUPERPUESTO */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,21 +271,43 @@
     padding: 30px;
     border-radius: 15px;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-top: 5px solid #C9A34E;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #1E3A5F;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-
     .grados-grid {
         grid-template-columns: 1fr;
     }
 
     .button-container {
         flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-editar, .btn-eliminar, .btn-guardar, .btn-cancelar {
+        width: 100%;
+        flex: none;
     }
 
     .card-body {
-        padding: 18px;
+        padding: 15px;
+    }
+    
+    .top-actions {
+        justify-content: center;
+    }
+    
+    .btn-agregar-grado {
+        width: 100%;
     }
 }

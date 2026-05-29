@@ -26,6 +26,7 @@ export class EditarFooter implements OnInit {
     this.cargarDatos();
   }
 
+  // TODO: En la fase de integración, este método consumirá un servicio HTTP
   cargarDatos(): void {
     this.telefono = localStorage.getItem('footer_telefono') || '2229-9067';
     this.correo = localStorage.getItem('footer_correo') || 'cewas2000@gmail.com';
@@ -38,10 +39,11 @@ export class EditarFooter implements OnInit {
     this.telefonoPreview = this.telefono || '____-____';
     this.correoPreview = this.correo || 'correo@ejemplo.com';
     this.hayCambiosSinGuardar = (this.telefono !== this.telefonoOriginal) || 
-                                 (this.correo !== this.correoOriginal);
+    (this.correo !== this.correoOriginal);
   }
 
   onTelefonoInput(): void {
+    // Extrae únicamente los caracteres numéricos
     let num = this.telefono.replace(/\D/g, '');
     if (num.length > 4) {
       num = num.substring(0, 4) + '-' + num.substring(4, 8);
@@ -68,6 +70,7 @@ export class EditarFooter implements OnInit {
     }
   }
 
+  // TODO: Este método enviará un objeto JSON mediante POST/PUT al backend en Payara
   guardarCambios(): void {
     if (this.mensajeError) return;
 

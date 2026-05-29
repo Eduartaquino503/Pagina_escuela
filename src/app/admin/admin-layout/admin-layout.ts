@@ -12,5 +12,5 @@ import { NavbarAdmin } from '../navbar-admin/navbar-admin';
   styleUrl: './admin-layout.css'
 })
 export class AdminLayout {
-  // Aquí podrías añadir lógica para colapsar el sidebar en el futuro
+  // Lógica de control estructural limpia y lista para producción
 }

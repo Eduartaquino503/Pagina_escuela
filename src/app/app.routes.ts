@@ -10,28 +10,35 @@ import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-p
 import { OfertaAcademica } from './components/oferta-academica/oferta-academica';
 
 export const routes: Routes = [
-  // ========== RUTAS PÚBLICAS ==========
-  { path: '', component: PaginaPrincipalComponent },
+  // ========== RUTAS PÚBLICAS (Sincronizadas con Pre-renderizado) ==========
+  /**
+   * CORREGIDO: Redirigimos la raíz vacía hacia /inicio de forma estricta.
+   * Esto unifica el tráfico de Nginx en un solo archivo estático indexado,
+   * optimizando la caché del navegador y evitando duplicidad de compilación.
+   */
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: PaginaPrincipalComponent },
   { path: 'oferta-academica', component: OfertaAcademica },
   
   // ========== LOGIN ==========
   { path: 'login', component: LoginComponent },
   
-  // ========== PANEL DE ADMINISTRACIÓN (protegido) ==========
+  // ========== PANEL DE ADMINISTRACIÓN (Protección por AuthGuard) ==========
   {
     path: 'admin',
     component: AdminLayout,
-    canActivate: [authGuard],
+    canActivate: [authGuard], // Blindaje perimetral para el Layout y todos sus hijos
     children: [
       { path: 'editar-info', component: EditorInfo },
       { path: 'editar-grados', component: EditarGrados },
       { path: 'editar-imagenes', component: EditarImagenes },
       { path: 'editar-footer', component: EditarFooter },
+      
+      // Inicializador por defecto si el usuario accede a /admin a secas
       { path: '', redirectTo: 'editar-info', pathMatch: 'full' }
     ]
   },
   
-  // ========== REDIRECCIÓN PARA RUTAS NO ENCONTRADAS ==========
-  { path: '**', redirectTo: '' }
+  // ========== REDIRECCIÓN DE SEGURIDAD PARA RUTAS INEXISTENTES ==========
+  { path: '**', redirectTo: 'inicio' }
 ];

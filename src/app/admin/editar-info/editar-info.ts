@@ -26,8 +26,9 @@ export class EditorInfo implements OnInit {
   contadorMision: number = 0;
   contadorVision: number = 0;
   
-  maxLength: number = 500;
-  idConfigActual: number = 1; // ID por defecto en tu tabla MySQL
+  // CORREGIDO: Ampliado para que la historia institucional no bloquee el validador de Angular
+  maxLength: number = 4000;
+  idConfigActual: number = 1;
 
   constructor() {
     this.infoForm = this.fb.group({
@@ -45,16 +46,19 @@ export class EditorInfo implements OnInit {
   cargarDesdeServidor(): void {
     this.institucionService.getInstitucion().subscribe({
       next: (info: InstitucionConfig) => {
-        this.idConfigActual = info.id_config;
-        this.infoForm.patchValue({
-          quienesSomos: info.quienesSomos,
-          mision: info.mision,
-          vision: info.vision
-        });
-        this.actualizarContadores();
+        if (info) {
+          this.idConfigActual = info.id_config || 1;
+          this.infoForm.patchValue({
+            quienesSomos: info.quienesSomos,
+            mision: info.mision,
+            vision: info.vision
+          });
+          this.actualizarContadores();
+        }
       },
       error: (err: any) => {
-        this.mensajeError = '❌ Error de conexión con el túnel de Cloudflare.';
+        console.error('[EditorInfo] Error de conexión con la API de Payara:', err);
+        this.mensajeError = '❌ Error de conexión con el Servidor HP a través del túnel.';
       }
     });
   }
@@ -91,15 +95,27 @@ export class EditorInfo implements OnInit {
     if (nombre === 'vision') this.errorVision = msg;
   }
 
+  // CORREGIDO: Renombrado a un contexto semántico correcto
+  onFieldBlur(campo: string): void {
+    this.validarCampo(campo);
+  }
+
   guardarCambios(): void {
     if (this.infoForm.valid) {
-      const datos: InstitucionConfig = { id_config: this.idConfigActual, ...this.infoForm.value };
+      const datos: InstitucionConfig = { 
+        id_config: this.idConfigActual, 
+        ...this.infoForm.value 
+      };
+      
       this.institucionService.actualizarInstitucion(datos).subscribe({
         next: () => {
           this.mensajeExito = '✅ Información actualizada en MySQL exitosamente.';
+          this.mensajeError = '';
+          this.cargarDesdeServidor(); // Refrescar estado limpio
           setTimeout(() => this.mensajeExito = '', 3000);
         },
         error: (err: any) => {
+          console.error('[EditorInfo] Error en la petición POST/PUT de persistencia:', err);
           this.mensajeError = '⚠️ Error al persistir cambios en el Server-HP.';
         }
       });

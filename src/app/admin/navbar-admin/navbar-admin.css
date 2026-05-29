@@ -4,15 +4,13 @@
   background-color: #1E3A5F;
   border-bottom: 3px solid #C9A34E;
   padding: 0.8rem 1.5rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1100; /* Un nivel por encima del sidebar para evitar solapamientos */
+  /* CORREGIDO: Dejamos que el contenedor padre (admin-layout) gobierne el comportamiento sticky */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .logo h2 {
@@ -58,23 +56,28 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Ajustes para móviles */
+/* ========================================================
+   MEDIA QUERY: Ajustes Responsivos Estrictos para Móviles
+   ======================================================== */
 @media (max-width: 600px) {
   .navbar-admin {
     padding: 0.6rem 1rem;
   }
 
   .logo h2 {
-    font-size: 0.9rem;
-    max-width: 120px;
+    font-size: 0.95rem;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Evita que el título empuje al menú si el celular es muy angosto */
   }
 
   .user-name {
-    display: none; /* Ocultamos el nombre en móviles muy pequeños para ahorrar espacio */
+    display: none; /* Ocultamos el nombre en móviles para optimizar el espacio táctil */
   }
 
   .btn-logout {
-    padding: 0.4rem 0.7rem;
+    padding: 0.5rem 0.8rem;
     font-size: 0.8rem;
   }
 }

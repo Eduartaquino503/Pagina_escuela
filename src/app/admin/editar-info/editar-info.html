@@ -1,55 +1,64 @@
 <div class="card mt-4">
   <div class="card-header">
     <h3>📝 Gestión de Contenido</h3>
-    <p style="margin: 0; font-size: 0.85rem; opacity: 0.9;">Edita la información de Quiénes Somos, Misión y Visión</p>
+    <p class="header-subtitle">Edita la información de Quiénes Somos, Misión y Visión</p>
   </div>
   
   <div class="card-body">
-    <!-- Notificaciones -->
-    <div *ngIf="mensajeExito" class="alert alert-success" 
-         style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #28a745;">
+    <div *ngIf="mensajeExito" class="alert alert-success">
       {{ mensajeExito }}
     </div>
     
-    <div *ngIf="mensajeError" class="alert alert-danger"
-         style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #dc3545;">
+    <div *ngIf="mensajeError" class="alert alert-danger">
       {{ mensajeError }}
     </div>
 
     <form [formGroup]="infoForm" (ngSubmit)="guardarCambios()">
       
-      <!-- Campo: Quiénes Somos -->
-      <div style="margin-bottom: 25px;">
+      <div class="form-field-group">
         <label class="form-label">Institución (¿Quiénes Somos?)</label>
-        <textarea class="form-control" rows="5" formControlName="quienesSomos" placeholder="Escribe aquí la historia o descripción de la escuela..."></textarea>
-        <div *ngIf="errorQuienesSomos" class="text-danger" style="font-size: 0.8rem; margin-top: 5px;">{{ errorQuienesSomos }}</div>
+        <textarea 
+          class="form-control" 
+          rows="5" 
+          formControlName="quienesSomos" 
+          (blur)="onFieldBlur('quienesSomos')"
+          placeholder="Escribe aquí la historia o descripción de la escuela..."></textarea>
+        <div *ngIf="errorQuienesSomos" class="text-error-msg">{{ errorQuienesSomos }}</div>
         <div class="form-hint">
           <span [class.text-danger]="contadorQuienesSomos > maxLength" [class.text-warning]="contadorQuienesSomos > maxLength - 50">
-            {{ contadorQuienesSomos }}/{{ maxLength }}
+            {{ contadorQuienesSomos }} / {{ maxLength }}
           </span>
         </div>
       </div>
 
-      <!-- Campo: Misión -->
-      <div style="margin-bottom: 25px;">
+      <div class="form-field-group">
         <label class="form-label">🎯 Misión Institucional</label>
-        <textarea class="form-control" rows="4" formControlName="mision" placeholder="Define el propósito actual de la institución..."></textarea>
-        <div *ngIf="errorMision" class="text-danger" style="font-size: 0.8rem; margin-top: 5px;">{{ errorMision }}</div>
+        <textarea 
+          class="form-control" 
+          rows="4" 
+          formControlName="mision" 
+          (blur)="onFieldBlur('mision')"
+          placeholder="Define el propósito actual de la institución..."></textarea>
+        <div *ngIf="errorMision" class="text-error-msg">{{ errorMision }}</div>
         <div class="form-hint">
           <span [class.text-danger]="contadorMision > maxLength" [class.text-warning]="contadorMision > maxLength - 50">
-            {{ contadorMision }}/{{ maxLength }}
+            {{ contadorMision }} / {{ maxLength }}
           </span>
         </div>
       </div>
 
-      <!-- Campo: Visión -->
-      <div style="margin-bottom: 25px;">
+      <div class="form-field-group">
         <label class="form-label">👁️ Visión a Futuro</label>
-        <textarea class="form-control" rows="4" formControlName="vision" placeholder="¿Cómo se ve la escuela en los próximos años?"></textarea>
-        <div *ngIf="errorVision" class="text-danger" style="font-size: 0.8rem; margin-top: 5px;">{{ errorVision }}</div>
+        <textarea 
+          class="form-control" 
+          rows="4" 
+          formControlName="vision" 
+          (blur)="onFieldBlur('vision')"
+          placeholder="¿Cómo se ve la escuela en los próximos años?"></textarea>
+        <div *ngIf="errorVision" class="text-error-msg">{{ errorVision }}</div>
         <div class="form-hint">
           <span [class.text-danger]="contadorVision > maxLength" [class.text-warning]="contadorVision > maxLength - 50">
-            {{ contadorVision }}/{{ maxLength }}
+            {{ contadorVision }} / {{ maxLength }}
           </span>
         </div>
       </div>

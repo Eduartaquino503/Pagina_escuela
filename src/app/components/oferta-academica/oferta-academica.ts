@@ -14,48 +14,46 @@ import { GradoService, Grado } from "../../services/grados.service";
   styleUrl: "./oferta-academica.css",
 })
 export class OfertaAcademica implements OnInit {
-
   gradosAcademicos: Grado[] = [];
-
   talleres: Grado[] = [];
-
   gradoSeleccionado: Grado | null = null;
 
-  constructor(
-    private gradoService: GradoService
-  ) {}
+  constructor(private gradoService: GradoService) {}
 
   ngOnInit(): void {
-
     this.cargarDatos();
   }
 
+  /**
+   * Carga los datos desde la API del servidor HP a través del túnel Cloudflare
+   * y los clasifica de forma reactiva alineándose con la sintaxis de MySQL.
+   */
   cargarDatos(): void {
-
     this.gradoService.getGrados().subscribe({
-
       next: (data) => {
+        if (data && Array.isArray(data)) {
+          // CORREGIDO: Homogeneizado a Mayúsculas para empalmar con el DEFAULT 'GRADO' de MySQL
+          this.gradosAcademicos = data.filter(
+            (g) => g && (g.tipo || "").toUpperCase() === "GRADO"
+          );
 
-        this.gradosAcademicos = data.filter(
-          (g) => (g.tipo || "").toLowerCase() === "grado"
-        );
-
-        this.talleres = data.filter(
-          (g) => (g.tipo || "").toLowerCase() === "taller"
-        );
+          // CORREGIDO: Homogeneizado a Mayúsculas para empalmar con la persistencia real de la BD
+          this.talleres = data.filter(
+            (g) => g && (g.tipo || "").toUpperCase() === "TALLER"
+          );
+        }
       },
-
       error: (err) => {
-        console.error(err);
+        console.error("[OfertaAcademica] Error crítico al sincronizar con la API de Payara:", err);
       }
     });
   }
 
+  /**
+   * Conmutador interactivo (Toggle) para abrir o cerrar los requisitos
+   * individuales de cada tarjeta de estudio.
+   */
   abrirRequisitos(grado: Grado): void {
-
-    this.gradoSeleccionado =
-      this.gradoSeleccionado === grado
-        ? null
-        : grado;
+    this.gradoSeleccionado = this.gradoSeleccionado === grado ? null : grado;
   }
 }

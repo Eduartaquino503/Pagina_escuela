@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
@@ -13,24 +13,21 @@ export interface Multimedia {
   providedIn: "root",
 })
 export class MultimediaService {
-  // Solo cambiamos esta línea: de localhost a tu subdominio seguro de Cloudflare
-  private apiUrl = "https://api.oseaquino-proyectos.uk/cewas-backend-1.0-SNAPSHOT/api/multimedia";
-
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+  private readonly apiUrl = "https://api.oseaquino-proyectos.uk/api/multimedia";
 
   subirImagen(seccion: string, file: File): Observable<any> {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("seccion", seccion);
-
-    return this.http.post(`${this.apiUrl}/upload`, formData);
+    return this.http.post(`${this.apiUrl}/upload`, formData, { withCredentials: true });
   }
 
   getImagenes(): Observable<Multimedia[]> {
-    return this.http.get<Multimedia[]>(this.apiUrl);
+    return this.http.get<Multimedia[]>(this.apiUrl, { withCredentials: true });
   }
 
   eliminarImagen(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }
